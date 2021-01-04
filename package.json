@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
+  "name": "vyra-api",
+  "version": "0.0.1",
+  "description": "API Rest para Vyra Project",
   "engines": {
     "node": "12.x"
   },
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://gitlab.com/vyra/vyra-api"
   },
   "keywords": [
-    "node",
-    "heroku",
-    "express"
+    "vyra",
+    "store",
+    "minimarket"
   ],
-  "license": "MIT"
+  "license": "auto-self"
 }
