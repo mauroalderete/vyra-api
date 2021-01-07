@@ -1,10 +1,11 @@
 const express = require('express');
+const jwt = require('jsonwebtoken')
 
 let route = express();
 
-route.get('/', (req,res,next) => {
+route.post('/', (req,res) => {
 
-    console.log('req: ', req.body)
+    console.log('body: ', req.body)
 
     res.json({
         response: 'Ok'
