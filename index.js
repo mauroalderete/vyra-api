@@ -8,7 +8,6 @@ const login = require('./modules/login/routes/login.route.js')
 const authMiddleware = require('./modules/login/middleware/auth.middleware.js')
 const marcas = require('./modules/stoc/routes/marcas.route.js')
 
-
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))

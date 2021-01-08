@@ -2,8 +2,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken')
 const UserModel = require('../../../models/user.model')
 
-const mauro = new UserModel('mauro', '123456', process.env.UID)
-const sergio = new UserModel('sergio', '123456', process.env.UID)
+const user_black = new UserModel(process.env.ACCOUNT_USERNAME_BLACK, process.env.ACCOUNT_PASSWORD_BLACK, process.env.UID)
+const user_red = new UserModel(process.env.ACCOUNT_USERNAME_RED, process.env.ACCOUNT_PASSWORD_RED, process.env.UID)
+const user_blue = new UserModel(process.env.ACCOUNT_USERNAME_BLUE, process.env.ACCOUNT_PASSWORD_BLUE, process.env.UID)
 
 let route = express();
 
@@ -11,7 +12,10 @@ route.post('/', (req,res) => {
 
     const user = new UserModel( req.body )
 
-    if( user.equal( mauro ) || user.equal( sergio ) ){
+    if( user.equal( user_black )
+        || user.equal( user_red )
+        || user.equal( user_blue )
+        ) {
 
         console.log(Date.now())
         const token = jwt.sign(
