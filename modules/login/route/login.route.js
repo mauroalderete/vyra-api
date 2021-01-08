@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
-const UserModel = require('../../models/user.model')
+const UserModel = require('../../../models/user.model')
 
 const mauro = new UserModel('mauro', '123456', process.env.UID)
 const sergio = new UserModel('sergio', '123456', process.env.UID)
