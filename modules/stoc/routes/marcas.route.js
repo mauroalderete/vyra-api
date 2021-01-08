@@ -7,3 +7,5 @@ route.get('/', (req,res) => {
         marcas: 'lista de marcas'
     })
 })
+
+module.exports = { route };
