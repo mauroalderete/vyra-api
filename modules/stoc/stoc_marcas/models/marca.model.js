@@ -1,4 +1,6 @@
-module.exports = class MarcaModel {
+module.exports =
+
+class Marca {
     constructor(obj){
         this.marca = undefined
         this.nombre = undefined
