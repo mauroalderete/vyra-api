@@ -1,5 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg')
+const MarcaModel = require('../models/marcas.model')
 
 let route = express();
 
@@ -8,15 +9,21 @@ const pool = new Pool({
     ssl: process.env.NODE_ENV == 'production' ? {rejectUnauthorized: false} : ''
 })
 
-console.log('MARCAS::')
-console.log(pool)
-
 route.get('/', (req,res) => {
 
     try{
         pool.connect().then( (client) => {
             client.query('SELECT * FROM STOC_MARCAS').then( (result) => {
-                res.status(200).send( result )
+
+                const marcas = []
+
+                for (const row in result.rows){
+                    const marca = new MarcaModel(row)
+
+                    marcas.push(marca)
+                }
+
+                res.status(200).send( marcas )
                 client.release()
             }).catch( reason => {
                 console.error(reason);
