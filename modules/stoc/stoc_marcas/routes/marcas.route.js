@@ -1,86 +1,30 @@
 const express = require('express');
-const { Pool } = require('pg')
-const MarcaModel = require('../models/marcas.model')
-const MarcaQuery = require('../models/marcas.query')
+const MarcaContext = require('../contexts/marca.context')
 
-let route = express();
-
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV == 'production' ? {rejectUnauthorized: false} : ''
-})
-
-const aa = new MarcaQuery()
+const route = express();
 
 route.get('/', (req,res) => {
 
-    try{
-        pool.connect().then( (client) => {
+    const context = new MarcaContext()
 
-            const marcaQuery = new MarcaQuery()
-
-            client.query( marcaQuery.select() ).then( (result) => {
-
-                const marcas = []
-
-                console.log(result.rows)
-
-                for (const row in result.rows){
-                    console.log('ROW::',row)
-                    console.log('--------')
-                    const marca = marcaQuery.toModel(row)
-
-                    marcas.push(marca)
-                }
-
-                res.status(200).send( marcas )
-                client.release()
-            }).catch( reason => {
-                console.error(reason);
-                res.status(409).send('[ERROR:Query] ' + reason)
-            } )
-        }).catch( reason => {
-            console.error(reason)
-            res.status(409).send('[ERROR:Connect] ' + reason)
-        })
-    } catch(err){
-        console.error(err);
-        res.status(409).send('[ERROR:Exception] ' + err)
-    }
+    context.select().then( marcas => {
+        res.status(200).send( marcas )
+    } ).catch( reason => {
+        res.status(400).send(reason)
+        console.error('[ERROR:Context] ', reason)
+    } )
 })
 
 route.post('/', (req, res)=>{
 
-    const marcaQuery = new MarcaQuery( new MarcaModel( req.body ) )
+    const context = new MarcaContext()
 
-    if( marcaQuery.isInsertable() ){
-
-        try{
-            pool.connect().then( (client) => {
-                client.query( marcaQuery.insert() ).then( (result) => {
-                    console.log('Marca inserted')
-                    console.log(result)
-
-                    const marca = marcaQuery.toModel(result.rows[0])
-
-                    res.status(200).send( marca )
-                    client.release()
-                }).catch( reason => {
-                    console.error(reason);
-                    res.status(409).send('[ERROR:Query] ' + reason)
-                } )
-            }).catch( reason => {
-                console.error(reason)
-                res.status(409).send('[ERROR:Connect] ' + reason)
-            })
-        } catch(err){
-            console.error(err);
-            res.status(409).send('[ERROR:Exception] ' + err)
-        }
-
-    } else {
-        res.status(400).send('Faltan datos')
-    }
+    context.insert( req.body ).then( marca => {
+        res.status(200).send( marca )
+    } ).catch( reason => {
+        res.status(400).send(reason)
+        console.error('[ERROR:Context] ', reason)
+    })
 })
 
 module.exports = { route };
