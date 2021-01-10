@@ -1,5 +1,6 @@
 const express = require('express');
-const MarcaContext = require('../contexts/marca.context')
+const MarcaContext = require('../contexts/marca.context');
+const Marca = require('../models/marca.model');
 
 const route = express();
 
@@ -9,6 +10,22 @@ route.get('/', (req,res) => {
 
     context.select().then( marcas => {
         res.status(200).send( marcas )
+    } ).catch( reason => {
+        res.status(400).send(reason)
+        console.error('[ERROR:Context] ', reason)
+    } )
+})
+
+route.get('/:id', (req,res) => {
+
+    const context = new MarcaContext()
+
+    context.selectById( req.params.id ).then( marca => {
+        if( marca==null){
+            res.status(404).send(`La marca ${id} no existe`)
+        } else {
+            res.status(200).send( marca )
+        }        
     } ).catch( reason => {
         res.status(400).send(reason)
         console.error('[ERROR:Context] ', reason)
@@ -25,6 +42,38 @@ route.post('/', (req, res)=>{
         res.status(400).send(reason)
         console.error('[ERROR:Context] ', reason)
     })
+})
+
+route.put('/:id', (req,res) => {
+
+    const context = new MarcaContext()
+
+    const marca = new Marca(req.body)
+
+    if( marca.marca != req.params.id ){
+        res.status(400).send('La marca a actualizar no coincide con los datos que se busca actualizar')
+        return
+    }
+    context.update( marca ).then( marca => {
+        res.status(200).send( marca )
+    } ).catch( reason => {
+        res.status(400).send(reason)
+        console.error('[ERROR:Context] ', reason)
+    } )
+})
+
+route.delete('/:id', (req,res) => {
+
+    const context = new MarcaContext()
+    const marca = new Marca()
+    marca.marca = req.params.id
+
+    context.delete( marca ).then( () => {
+        res.status(200).send()
+    } ).catch( reason => {
+        res.status(400).send(reason)
+        console.error('[ERROR:Context] ', reason)
+    } )
 })
 
 module.exports = { route };

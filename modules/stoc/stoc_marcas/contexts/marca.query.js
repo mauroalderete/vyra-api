@@ -25,11 +25,11 @@ class MarcaQueryable extends Marca {
     }
 
     selectQuery(){
-        return this.isSelectable()? `SELECT * FROM STOC_MARCAS WHERE marca = ${id}` : 'SELECT * FROM STOC_MARCAS'
+        return this.isSelectable()? `SELECT * FROM STOC_MARCAS WHERE marc_marca = ${this.marca}` : 'SELECT * FROM STOC_MARCAS'
     }
 
-    deleteQuery(id){
-        return this.isDeletable()? `DELETE STOC_MARCAS WHERE marca = ${id}` : ''
+    deleteQuery(){
+        return this.isDeletable()? `DELETE FROM STOC_MARCAS WHERE marc_marca = ${this.marca}` : ''
     }
 
     insertQuery(){
@@ -41,6 +41,14 @@ class MarcaQueryable extends Marca {
             '${this.nombre}',
             ${this.notas==undefined? null: `'${this.notas}'` }
         ) RETURNING marc_marca, marc_nombre, marc_notas, marc_baja` : ''
+    }
+
+    updateQuery(){
+        return this.isUpdatable()? `
+        UPDATE STOC_MARCAS SET
+            marc_nombre = '${this.nombre}'
+            ,marc_notas = ${this.notas==undefined? null: `'${this.notas}'`}
+        WHERE marc_marca = ${this.marca}` : ''
     }
 
     fromContext(obj){
