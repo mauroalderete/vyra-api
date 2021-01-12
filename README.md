@@ -37,3 +37,26 @@ For more information about using Node.js on Heroku, see these Dev Center article
 - [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
 - [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
 - [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+
+## Varaibles de entorno
+
+Vyra API requiere un conjunto de variables de entrono definidas para generar el token, obtener rutas de recursos y definir las cuentas de usuario
+
+Las variables requeridas son:
+
+``` js
+NODE_ENV=prod
+TOKEN_SECRET=token_de_prueba
+EXPIRE_JWT=86400
+
+ACCOUNT_USERNAME_BLACK=nombre del usuario administrador
+ACCOUNT_PASSWORD_BLACK=password del usuario administrador
+ACCOUNT_USERNAME_RED=nombre de usuario 1
+ACCOUNT_PASSWORD_RED=password de usuario 1
+ACCOUNT_USERNAME_BLUE=nombre de usuario 2
+ACCOUNT_PASSWORD_BLUE=password de usuario 2
+
+UID=vyraproject
+
+DATABASE_URL=definido como lo requiere heroku
+```
