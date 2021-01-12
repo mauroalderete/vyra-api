@@ -16,7 +16,6 @@ auth.use( (req, res, next)=> {
     token = token.replace('Bearer ', '')
 
     jwt.verify(token, process.env.TOKEN_SECRET, (result, dec) => {
-        console.info('result: ', result)
         if(result){
             res.status(401).send('Acceso no autorizado')
         } else {
