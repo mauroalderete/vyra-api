@@ -40,10 +40,7 @@ class MarcaContext {
         return new Promise( (resolve, reject) => {
             this.pool.connect().then( (client) => {
                 const q = new MarcaQueryable()
-                console.log('selectById.id: ', id)
                 q.marca = parseInt(id)
-                console.log('asd: ', q)
-                console.log('asd2: ', q.selectQuery())
                 client.query( q.selectQuery() ).then( (result) => {
                     client.release()
 
@@ -100,8 +97,6 @@ class MarcaContext {
                 if( marcaQueryable.isUpdatable() ){
                     client.query( marcaQueryable.updateQuery() ).then( (result) => {
 
-                        console.log('RESULT: ', result)
-
                         client.release()
                         resolve( marcaQueryable.toModel() )
 
@@ -125,10 +120,6 @@ class MarcaContext {
             this.pool.connect().then( (client) => {
 
                 const marcaQueryable = new MarcaQueryable( obj )
-
-                console.log( 'DELETE: ', obj )
-                console.log( 'isDeletable: ', marcaQueryable.isDeletable() )
-                console.log( 'Query: ', marcaQueryable.deleteQuery() )
 
                 if( marcaQueryable.isDeletable() ){
                     client.query( marcaQueryable.deleteQuery() ).then( (result) => {
