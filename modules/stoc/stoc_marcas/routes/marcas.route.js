@@ -4,6 +4,7 @@ const Marca = require('../models/marca.model');
 
 const route = express();
 
+//select all marcas
 route.get('/', (req,res) => {
 
     const context = new MarcaContext()
@@ -16,6 +17,7 @@ route.get('/', (req,res) => {
     } )
 })
 
+//select one marca
 route.get('/:id', (req,res) => {
 
     const context = new MarcaContext()
@@ -32,6 +34,7 @@ route.get('/:id', (req,res) => {
     } )
 })
 
+//insert one marca
 route.post('/', (req, res)=>{
 
     const context = new MarcaContext()
@@ -44,6 +47,7 @@ route.post('/', (req, res)=>{
     })
 })
 
+//update one marca
 route.put('/:id', (req,res) => {
 
     const context = new MarcaContext()
@@ -62,6 +66,7 @@ route.put('/:id', (req,res) => {
     } )
 })
 
+//delete one marca
 route.delete('/:id', (req,res) => {
 
     const context = new MarcaContext()
