@@ -29,7 +29,7 @@ class MarcaQueryable extends Marca {
     }
 
     deleteQuery(){
-        return this.isDeletable()? `DELETE FROM STOC_MARCAS WHERE marc_marca = ${this.marca}` : ''
+        return this.isDeletable()? `DELETE FROM STOC_MARCAS WHERE marc_marca = ${this.marca} RETURNING 1` : ''
     }
 
     insertQuery(){
@@ -48,7 +48,7 @@ class MarcaQueryable extends Marca {
         UPDATE STOC_MARCAS SET
             marc_nombre = '${this.nombre}'
             ,marc_notas = ${this.notas==undefined? null: `'${this.notas}'`}
-        WHERE marc_marca = ${this.marca}` : ''
+        WHERE marc_marca = ${this.marca} RETURNING STOC_MARCAS.*` : ''
     }
 
     fromContext(obj){

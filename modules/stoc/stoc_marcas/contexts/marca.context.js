@@ -98,7 +98,12 @@ class MarcaContext {
                     client.query( marcaQueryable.updateQuery() ).then( (result) => {
 
                         client.release()
-                        resolve( marcaQueryable.toModel() )
+
+                        if(result.rows.length > 0){
+                            resolve( marcaQueryable.fromContext(result.rows[0]).toModel() )
+                        } else {
+                            resolve(null)
+                        }                        
 
                     }).catch( reason => {
                         reject('[ERROR:Query] ' + reason)
@@ -125,7 +130,12 @@ class MarcaContext {
                     client.query( marcaQueryable.deleteQuery() ).then( (result) => {
 
                         client.release()
-                        resolve()
+
+                        if( result.rows.length > 0 ){
+                            resolve(1)
+                        } else {
+                            resolve(null)
+                        }
 
                     }).catch( reason => {
                         reject('[ERROR:Query] ' + reason)

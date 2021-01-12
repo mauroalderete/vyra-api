@@ -24,7 +24,7 @@ route.get('/:id', (req,res) => {
 
     context.selectById( req.params.id ).then( marca => {
         if( marca==null){
-            res.status(404).send(`La marca ${id} no existe`)
+            res.status(404).send(`La marca ${req.params.id} no existe`)
         } else {
             res.status(200).send( marca )
         }        
@@ -59,7 +59,11 @@ route.put('/:id', (req,res) => {
         return
     }
     context.update( marca ).then( marca => {
-        res.status(200).send( marca )
+        if(marca == null || marca == undefined){
+            res.status(404).send(`Marca ${req.params.id} no fue encontrada`)
+        } else {
+            res.status(200).send( marca )
+        }
     } ).catch( reason => {
         res.status(400).send(reason)
         console.error('[ERROR:Context] ', reason)
@@ -73,8 +77,12 @@ route.delete('/:id', (req,res) => {
     const marca = new Marca()
     marca.marca = req.params.id
 
-    context.delete( marca ).then( () => {
-        res.status(200).send()
+    context.delete( marca ).then( (result) => {
+        if(result == null || result == undefined ){
+            res.status(404).send(`Marca ${req.params.id} no fue encontrada`)
+        } else {
+            res.status(200).send()
+        }
     } ).catch( reason => {
         res.status(400).send(reason)
         console.error('[ERROR:Context] ', reason)
