@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
+const cors = require('cors')
 
 const bodyParser = require('body-parser')
 
@@ -9,6 +10,8 @@ const authMiddleware = require('./modules/login/middleware/auth.middleware.js')
 const marcas = require('./modules/stoc/stoc_marcas/routes/marcas.route.js')
 
 const app = express()
+
+app.use(cors())
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
