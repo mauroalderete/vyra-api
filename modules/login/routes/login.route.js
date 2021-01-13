@@ -2,9 +2,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken')
 const UserModel = require('../../../models/user.model')
 
-const user_black = new UserModel(process.env.ACCOUNT_USERNAME_BLACK, process.env.ACCOUNT_PASSWORD_BLACK, process.env.UID)
-const user_red = new UserModel(process.env.ACCOUNT_USERNAME_RED, process.env.ACCOUNT_PASSWORD_RED, process.env.UID)
-const user_blue = new UserModel(process.env.ACCOUNT_USERNAME_BLUE, process.env.ACCOUNT_PASSWORD_BLUE, process.env.UID)
+const user_black = new UserModel(process.env.ACCOUNT_USERNAME_BLACK, process.env.ACCOUNT_PASSWORD_BLACK, process.env.APP_UID)
+const user_red = new UserModel(process.env.ACCOUNT_USERNAME_RED, process.env.ACCOUNT_PASSWORD_RED, process.env.APP_UID)
+const user_blue = new UserModel(process.env.ACCOUNT_USERNAME_BLUE, process.env.ACCOUNT_PASSWORD_BLUE, process.env.APP_UID)
 
 let route = express();
 
