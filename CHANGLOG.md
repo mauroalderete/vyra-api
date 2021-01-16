@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 20210116 Release v0.0.7
+
+Los cambios de esta version son:
+
+- Se genera un registro en el log con la fecha y el nombre del usuario que se logea
+- Si el acceso es invalido se devuelve codigo de error 401
+
 ## 20210112 Release v0.0.1
 
 Libero la primer version para testing
