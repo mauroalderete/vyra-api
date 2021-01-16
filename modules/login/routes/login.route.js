@@ -17,7 +17,7 @@ route.post('/', (req,res) => {
         || user.equal( user_blue )
         ) {
 
-        console.log(Date.now())
+        console.log(`[Login] like ${user.username} at ${formatTimestamp(Date.now())}`)
         const token = jwt.sign(
             { user: user, timestamp: Date.now() },
             process.env.TOKEN_SECRET,
@@ -32,8 +32,25 @@ route.post('/', (req,res) => {
         });
 
     } else {
-        res.status(400).send('Acceso invalido')
+        res.status(401).send('Acceso invalido')
     }
 });
+
+function formatTimestamp(date) {
+    var d = new Date(date)
+    month = '' + (d.getMonth() + 1)
+    day = '' + d.getDate()
+    year = d.getFullYear()
+    hour = '' + d.getHours()
+    minutes = '' + d.getMinutes()
+    seconds = '' + d.getSeconds()
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return `${year}${month}${day} ${hour}:${minutes}:${seconds}`;
+}
 
 module.exports = { route };
