@@ -17,7 +17,7 @@ route.post('/', (req,res) => {
         || user.equal( user_blue )
         ) {
 
-        console.log(Date.now())
+        console.log(`[Login] like ${user.username} at ${formatTimestamp(Date.now())}`)
         const token = jwt.sign(
             { user: user, timestamp: Date.now() },
             process.env.TOKEN_SECRET,
