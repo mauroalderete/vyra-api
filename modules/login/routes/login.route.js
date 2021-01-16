@@ -32,7 +32,7 @@ route.post('/', (req,res) => {
         });
 
     } else {
-        res.status(400).send('Acceso invalido')
+        res.status(401).send('Acceso invalido')
     }
 });
 
